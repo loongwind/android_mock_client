@@ -38,10 +38,17 @@ dependencies:
   fluent_ui: ^4.4.0
   system_theme: ^2.1.0
   window_manager: ^0.3.1
+  get: ^4.6.5
+  objectbox: ^1.7.2
+  objectbox_flutter_libs: any
+  uuid: ^3.0.7
+  path_provider: ^2.0.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.0.0
+  objectbox_generator: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

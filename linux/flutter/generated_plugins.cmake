@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  objectbox_flutter_libs
   screen_retriever
   system_theme
   window_manager

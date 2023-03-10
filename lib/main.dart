@@ -3,6 +3,8 @@ import 'package:mock_client/view/navigation_view.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'app.dart';
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // 必须加上这一行。
@@ -20,6 +22,7 @@ void main() async{
     await windowManager.focus();
     await windowManager.setPreventClose(true);
   });
+  await init();
   runApp(const MyApp());
 }
 
