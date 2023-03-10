@@ -1,13 +1,50 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:window_manager/window_manager.dart';
 
-Widget buildNavigationView(int topIndex, Function(int) callback) {
-  return NavigationView
-    (
+Widget buildNavigationView(
+    BuildContext context, int topIndex, Function(int) callback) {
+  return NavigationView(
     appBar: NavigationAppBar(
-      leading: Container(),
-      actions: defaultTargetPlatform == TargetPlatform.windows ? const WindowButtons() : null
+        leading: Container(),
+        title: () {
+          return DragToMoveArea(
+            child: Align(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                "Android Mock Client",
+                style: material.Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          );
+        }(),
+      actions: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 250),
+              child: CommandBar(
+                primaryItems: [
+                  CommandBarButton(
+                    icon: const Icon(FluentIcons.add),
+                    label: const Text('New'),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // WindowButtons()
+          if(defaultTargetPlatform == TargetPlatform.windows) WindowButtons() else Container()
+        ],
+      )
+        // actions: defaultTargetPlatform == TargetPlatform.windows
+        //     ? const WindowButtons()
+        //     : null
     ),
     pane: NavigationPane(
       selected: topIndex,
@@ -35,7 +72,6 @@ Widget buildNavigationView(int topIndex, Function(int) callback) {
     ),
   );
 }
-
 
 class WindowButtons extends StatelessWidget {
   const WindowButtons({Key? key}) : super(key: key);

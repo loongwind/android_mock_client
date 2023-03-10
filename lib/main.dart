@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener{
 
   @override
   Widget build(BuildContext context) {
-    return buildNavigationView(
+    return buildNavigationView(context,
         index,
         (p0) => {
               setState(() {
