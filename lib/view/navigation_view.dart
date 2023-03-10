@@ -1,13 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:window_manager/window_manager.dart';
 
 Widget buildNavigationView(int topIndex, Function(int) callback) {
   return NavigationView
     (
-    appBar: const NavigationAppBar(
-      // title: Text('NavigationView'),
-      leading: Text(""),
-      actions: WindowButtons()
+    appBar: NavigationAppBar(
+      leading: Container(),
+      actions: defaultTargetPlatform == TargetPlatform.windows ? const WindowButtons() : null
     ),
     pane: NavigationPane(
       selected: topIndex,
