@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:get/get.dart';
 import 'package:mock_client/controller/mock_controller.dart';
+import 'package:mock_client/model/mock_server.dart';
 import 'package:mock_client/view/create_server_dialog.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -57,9 +58,11 @@ Widget buildNavigationView(
       displayMode: PaneDisplayMode.open,
       items: [
         ...List.generate(mockController.servers.length, (index){
+          MockServer server = mockController.servers[index];
           return PaneItemExpander(
             icon: const Icon(FluentIcons.cell_phone),
-            title: const Text('Account'),
+            title: Text("${server.name}(${server.addr})",),
+
             body: Container(),
             items: []
           );

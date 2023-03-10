@@ -1,5 +1,12 @@
 PODS:
   - FlutterMacOS (1.0.0)
+  - ObjectBox (1.8.1)
+  - objectbox_flutter_libs (0.0.1):
+    - FlutterMacOS
+    - ObjectBox (= 1.8.1)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - screen_retriever (0.0.1):
     - FlutterMacOS
   - system_theme (0.0.1):
@@ -9,13 +16,23 @@ PODS:
 
 DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - objectbox_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/objectbox_flutter_libs/macos`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - system_theme (from `Flutter/ephemeral/.symlinks/plugins/system_theme/macos`)
   - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
+SPEC REPOS:
+  trunk:
+    - ObjectBox
+
 EXTERNAL SOURCES:
   FlutterMacOS:
     :path: Flutter/ephemeral
+  objectbox_flutter_libs:
+    :path: Flutter/ephemeral/.symlinks/plugins/objectbox_flutter_libs/macos
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos
   screen_retriever:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   system_theme:
@@ -25,10 +42,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  ObjectBox: a7900d5335218cd437cbc080b7ccc38a5211f7b4
+  objectbox_flutter_libs: f89ab4878f0f764a49077cfaa59030be69ae1d7e
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   system_theme: c7b9f6659a5caa26c9bc2284da096781e9a6fcbc
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 
 PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

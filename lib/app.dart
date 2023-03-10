@@ -6,7 +6,7 @@ import 'package:mock_client/repository/data_repository.dart';
 
 Future<void> init() async{
   await Get.putAsync(() async{
-    await DataRepository.create();
+    return await DataRepository.create();
   });
   Get.put(MockController());
   return;

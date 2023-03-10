@@ -16,7 +16,7 @@ class DataRepository {
   }
 
   Future<void> initStore() async {
-    _store = await openStore();
+    _store = await openStore(macosApplicationGroup: "FGDTDLOBXDJ.demo");
     return;
   }
 

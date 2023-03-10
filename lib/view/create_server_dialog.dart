@@ -1,7 +1,13 @@
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:get/get.dart';
+import 'package:mock_client/controller/mock_controller.dart';
+import 'package:mock_client/model/mock_server.dart';
+import 'package:mock_client/repository/data_repository.dart';
 
 void showContentDialog(BuildContext context) async {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addrController = TextEditingController();
   final result = await showDialog<String>(
     context: context,
     builder: (context) => ContentDialog(
@@ -16,6 +22,7 @@ void showContentDialog(BuildContext context) async {
               Container(
                 width: 250,
                 child: TextBox(
+                  controller: nameController,
                   placeholder: "请输入名称",
                 ),
               )
@@ -29,6 +36,7 @@ void showContentDialog(BuildContext context) async {
               Container(
                 width: 250,
                 child: TextBox(
+                  controller: addrController,
                   placeholder: "192.168.1.8:8080",
                 ),
               )
@@ -43,7 +51,13 @@ void showContentDialog(BuildContext context) async {
         ),
         FilledButton(
           child: const Text('确定'),
-          onPressed: () => Navigator.pop(context),
+          onPressed: (){
+            MockController controller = Get.find();
+            String name = nameController.text;
+            String addr = addrController.text;
+            controller.add(MockServer(name, addr));
+            Navigator.pop(context);
+          },
         ),
       ],
     ),
