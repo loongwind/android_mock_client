@@ -15,8 +15,10 @@ void main() async{
     titleBarStyle: TitleBarStyle.hidden,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.center();
     await windowManager.show();
     await windowManager.focus();
+    await windowManager.setPreventClose(true);
   });
   runApp(const MyApp());
 }
@@ -41,8 +43,27 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WindowListener{
   int index = 0;
+
+  @override
+  void initState() {
+    windowManager.addListener(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  @override
+  void onWindowClose() {
+    // TODO: implement onWindowClose
+    super.onWindowClose();
+    windowManager.destroy();
+  }
 
   @override
   Widget build(BuildContext context) {
