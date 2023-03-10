@@ -5,6 +5,7 @@ import 'package:window_manager/window_manager.dart';
 
 Widget buildNavigationView(
     BuildContext context, int topIndex, Function(int) callback) {
+  bool isWindows = defaultTargetPlatform == TargetPlatform.windows;
   return NavigationView(
     appBar: NavigationAppBar(
         leading: Container(),
@@ -26,7 +27,7 @@ Widget buildNavigationView(
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 400),
             child: Padding(
-              padding: const EdgeInsets.only(left: 250),
+              padding: EdgeInsets.only(left: isWindows ? 10 : 250),
               child: CommandBar(
                 primaryItems: [
                   CommandBarButton(
@@ -39,7 +40,7 @@ Widget buildNavigationView(
             ),
           ),
           // WindowButtons()
-          if(defaultTargetPlatform == TargetPlatform.windows) WindowButtons() else Container()
+          if(isWindows) WindowButtons() else Container()
         ],
       )
         // actions: defaultTargetPlatform == TargetPlatform.windows
