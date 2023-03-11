@@ -6,11 +6,14 @@ class MockData {
   @Id()
   int id = 0;
   String uuid;
+  String name;
 
   String url;
   String response;
 
-  MockData(this.url, this.response, {this.id = 0, this.uuid = ""}) {
+
+
+  MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = ""}) {
     if (uuid.isEmpty) {
       uuid = const Uuid().v1();
     }

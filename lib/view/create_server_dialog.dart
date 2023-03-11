@@ -55,7 +55,7 @@ void showContentDialog(BuildContext context) async {
             MockController controller = Get.find();
             String name = nameController.text;
             String addr = addrController.text;
-            controller.add(MockServer(name, addr));
+            controller.saveServer(MockServer(name, addr));
             Navigator.pop(context);
           },
         ),

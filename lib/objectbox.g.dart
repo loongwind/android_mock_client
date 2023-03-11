@@ -23,7 +23,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 3735452852692889002),
       name: 'MockData',
-      lastPropertyId: const IdUid(4, 489188390909583648),
+      lastPropertyId: const IdUid(5, 560779303076101383),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -44,6 +44,11 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(4, 489188390909583648),
             name: 'response',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 560779303076101383),
+            name: 'name',
             type: 9,
             flags: 0)
       ],
@@ -71,7 +76,12 @@ final _entities = <ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <ModelRelation>[],
+      relations: <ModelRelation>[
+        ModelRelation(
+            id: const IdUid(1, 6313189150742063222),
+            name: 'data',
+            targetId: const IdUid(1, 3735452852692889002))
+      ],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -97,7 +107,7 @@ ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const IdUid(2, 1028564796892374294),
       lastIndexId: const IdUid(0, 0),
-      lastRelationId: const IdUid(0, 0),
+      lastRelationId: const IdUid(1, 6313189150742063222),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
@@ -120,11 +130,13 @@ ModelDefinition getObjectBoxModel() {
           final uuidOffset = fbb.writeString(object.uuid);
           final urlOffset = fbb.writeString(object.url);
           final responseOffset = fbb.writeString(object.response);
-          fbb.startTable(5);
+          final nameOffset = fbb.writeString(object.name);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, uuidOffset);
           fbb.addOffset(2, urlOffset);
           fbb.addOffset(3, responseOffset);
+          fbb.addOffset(4, nameOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -133,6 +145,8 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
 
           final object = MockData(
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 12, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''),
               const fb.StringReader(asciiOptimization: true)
@@ -146,7 +160,8 @@ ModelDefinition getObjectBoxModel() {
     MockServer: EntityDefinition<MockServer>(
         model: _entities[1],
         toOneRelations: (MockServer object) => [],
-        toManyRelations: (MockServer object) => {},
+        toManyRelations: (MockServer object) =>
+            {RelInfo<MockServer>.toMany(1, object.id): object.data},
         getId: (MockServer object) => object.id,
         setId: (MockServer object, int id) {
           object.id = id;
@@ -171,7 +186,11 @@ ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''))
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-
+          InternalToManyAccess.setRelInfo(
+              object.data,
+              store,
+              RelInfo<MockServer>.toMany(1, object.id),
+              store.box<MockServer>());
           return object;
         })
   };
@@ -193,6 +212,9 @@ class MockData_ {
   /// see [MockData.response]
   static final response =
       QueryStringProperty<MockData>(_entities[0].properties[3]);
+
+  /// see [MockData.name]
+  static final name = QueryStringProperty<MockData>(_entities[0].properties[4]);
 }
 
 /// [MockServer] entity fields to define ObjectBox queries.
@@ -208,4 +230,8 @@ class MockServer_ {
   /// see [MockServer.addr]
   static final addr =
       QueryStringProperty<MockServer>(_entities[1].properties[2]);
+
+  /// see [MockServer.data]
+  static final data =
+      QueryRelationToMany<MockServer, MockData>(_entities[1].relations[0]);
 }

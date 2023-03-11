@@ -47,7 +47,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with WindowListener{
-  int index = 0;
 
   @override
   void initState() {
@@ -70,12 +69,6 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener{
 
   @override
   Widget build(BuildContext context) {
-    return buildNavigationView(context,
-        index,
-        (p0) => {
-              setState(() {
-                index = p0;
-              })
-            });
+    return const NavigationWidget();
   }
 }

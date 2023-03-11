@@ -24,7 +24,15 @@ class DataRepository {
     _mockServerBox.put(server);
   }
 
+  void removeServer(MockServer server) {
+    _mockServerBox.remove(server.id);
+  }
+
   List<MockServer> getServers(){
     return _mockServerBox.getAll();
+  }
+
+  void saveMockData(MockData data) {
+    _mockDataBox.put(data);
   }
 }

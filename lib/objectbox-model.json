@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3735452852692889002",
-      "lastPropertyId": "4:489188390909583648",
+      "lastPropertyId": "5:560779303076101383",
       "name": "MockData",
       "properties": [
         {
@@ -27,6 +27,11 @@
         {
           "id": "4:489188390909583648",
           "name": "response",
+          "type": 9
+        },
+        {
+          "id": "5:560779303076101383",
+          "name": "name",
           "type": 9
         }
       ],
@@ -54,12 +59,18 @@
           "type": 9
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "1:6313189150742063222",
+          "name": "data",
+          "targetId": "1:3735452852692889002"
+        }
+      ]
     }
   ],
   "lastEntityId": "2:1028564796892374294",
   "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastRelationId": "1:6313189150742063222",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
