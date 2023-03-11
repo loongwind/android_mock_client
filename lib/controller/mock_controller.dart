@@ -7,6 +7,7 @@ import 'package:mock_client/repository/data_repository.dart';
 class MockController extends GetxController {
     final _dataRepository = Get.find<DataRepository>();
     final servers = <MockServer>[].obs;
+    final selectedIndex = 0.obs;
 
 
     @override
@@ -14,6 +15,8 @@ class MockController extends GetxController {
     super.onInit();
     var list = _dataRepository.getServers();
     servers.addAll(list);
+    _sort();
+    ever(servers, (newValue) => _sort());
   }
 
 
@@ -33,6 +36,22 @@ class MockController extends GetxController {
     void saveMockData(String name, String url, String response){
       var mockData = MockData(name, url, response);
       _dataRepository.saveMockData(mockData);
+    }
+
+    void _sort(){
+      int i = 0;
+      for (var server in servers) {
+        server.sort = i++;
+        for (var data in server.data) {
+          data.sort = i ++;
+        }
+      }
+    }
+
+    void cleanServerAddNewState(){
+      for (var element in servers) {
+        element.isAddNew.value = false;
+      }
     }
 
 }

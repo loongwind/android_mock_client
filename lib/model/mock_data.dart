@@ -11,7 +11,8 @@ class MockData {
   String url;
   String response;
 
-
+  @Transient()
+  int sort = 0;
 
   MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = ""}) {
     if (uuid.isEmpty) {
