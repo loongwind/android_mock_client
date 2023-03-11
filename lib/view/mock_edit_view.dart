@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
@@ -7,7 +8,9 @@ import 'package:mock_client/model/mock_server.dart';
 class MockEditWidget extends StatefulWidget {
   final MockServer mockServer;
   final MockData? mockData;
-  const MockEditWidget(this.mockServer, {Key? key, this.mockData}) : super(key: key);
+
+  const MockEditWidget(this.mockServer, {Key? key, this.mockData})
+      : super(key: key);
 
   @override
   State<MockEditWidget> createState() => _MockEditWidgetState();
@@ -19,6 +22,8 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   final TextEditingController responseController = TextEditingController();
 
   final MockController mockController = Get.find();
+  bool isWindows = defaultTargetPlatform == TargetPlatform.windows;
+  late int responseLines = isWindows ? 26 : 29;
 
   @override
   void initState() {
@@ -27,7 +32,6 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     urlController.text = widget.mockData?.url ?? "";
     responseController.text = widget.mockData?.response ?? "";
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +51,7 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     );
   }
 
-
-  Widget buildServer(){
+  Widget buildServer() {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0),
       child: Text("目标设备：${widget.mockServer.name}（${widget.mockServer.addr}）"),
@@ -72,10 +75,10 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     );
   }
 
-  Widget buildResponse(){
+  Widget buildResponse() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:  [
+      children: [
         const Padding(
           padding: EdgeInsets.only(left: 25),
           child: Text('Response:'),
@@ -84,16 +87,15 @@ class _MockEditWidgetState extends State<MockEditWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: TextBox(
-            controller: responseController,
-            maxLines: 29,
-              minLines:29
-          ),
+              controller: responseController,
+              maxLines: responseLines,
+              minLines: responseLines),
         )
       ],
     );
   }
 
-  Widget buildSubmit(){
+  Widget buildSubmit() {
     return Expanded(
       child: Container(
         alignment: Alignment.centerRight,
@@ -106,21 +108,19 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     );
   }
 
-  void submit(){
+  void submit() {
     String name = nameController.text;
     String url = urlController.text;
     String response = responseController.text;
 
-    if(widget.mockData == null){
+    if (widget.mockData == null) {
       widget.mockServer.data.add(MockData(name, url, response));
-    }else{
+    } else {
       widget.mockData?.name = name;
       widget.mockData?.url = url;
       widget.mockData?.response = response;
     }
 
-
     mockController.updateServer(widget.mockServer);
   }
-
 }

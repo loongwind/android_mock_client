@@ -49,7 +49,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                   child: CommandBar(
                     primaryItems: [
                       CommandBarButton(
-                        icon: const Icon(FluentIcons.add),
+                        icon: const Icon(FluentIcons.add, size: 12,),
                         label: const Text('New'),
                         onPressed: () => showContentDialog(context),
                       ),
