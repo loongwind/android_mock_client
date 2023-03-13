@@ -25,7 +25,7 @@ void main() async{
   await init();
   runApp(const MyApp());
 }
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FluentApp(
       title: 'Flutter Demo',
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: FluentThemeData(accentColor: SystemTheme.accentColor.accent.toAccentColor()),
       home: MyHomePage(),
