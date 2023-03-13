@@ -76,34 +76,38 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   }
 
   Widget buildResponse() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 25),
-          child: Text('Response:'),
-        ),
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: TextBox(
-              controller: responseController,
-              maxLines: responseLines,
-              minLines: responseLines),
-        )
-      ],
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 25),
+            child: Text('Response:'),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            // padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TextBox(
+                  controller: responseController,
+                  maxLines: null,
+                  minLines: null),
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget buildSubmit() {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 30),
-        child: FilledButton(
-          onPressed: submit,
-          child: const Text('提交'),
-        ),
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: const EdgeInsets.only(right: 30),
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
+      child: FilledButton(
+        onPressed: submit,
+        child: const Text('提交'),
       ),
     );
   }
