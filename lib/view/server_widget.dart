@@ -5,6 +5,7 @@ import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
 import 'package:mock_client/view/create_server_dialog.dart';
+import 'package:mock_client/view/delete_dialog.dart';
 
 class ServerWidget extends StatefulWidget {
   final MockServer server;
@@ -60,7 +61,10 @@ class _ServerWidgetState extends State<ServerWidget> {
               color: material.Theme.of(context).colorScheme.error,
             ),
             onPressed: () {
-              controller.delete(widget.server);
+              showDeleteDialog(context: context, msg: widget.server.name, confirmDelete: (){
+                  controller.delete(widget.server);
+              });
+
             }),
         const SizedBox(
           width: 10,
@@ -113,8 +117,11 @@ class _ServerWidgetState extends State<ServerWidget> {
                               color:
                                   material.Theme.of(context).colorScheme.error),
                           onPressed: () {
-                            widget.server.data.remove(mockData);
-                            controller.updateServer(widget.server);
+                            showDeleteDialog(context: context, msg: mockData.name, confirmDelete: (){
+                                widget.server.data.remove(mockData);
+                                controller.updateServer(widget.server);
+                            });
+
                           })
                     ],
                   ),

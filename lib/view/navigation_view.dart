@@ -6,6 +6,7 @@ import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
 import 'package:mock_client/view/create_server_dialog.dart';
+import 'package:mock_client/view/delete_dialog.dart';
 import 'package:mock_client/view/mock_edit_view.dart';
 import 'package:mock_client/view/server_widget.dart';
 import 'package:window_manager/window_manager.dart';
@@ -102,8 +103,10 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                         ),
                         label: const Text('Delete'),
                         onPressed: () {
-                          mockController.delete(server);
                           Navigator.pop(context);
+                          showDeleteDialog(context: context, msg: server.name, confirmDelete: (){
+                              mockController.delete(server);
+                          });
                         },
                       ),
                     ],
@@ -124,8 +127,10 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                           size: 12,
                         ),
                         onPressed: () {
-                          server.data.remove(data);
-                          mockController.updateServer(server);
+                          showDeleteDialog(context: context, msg: data.name, confirmDelete: (){
+                              server.data.remove(data);
+                              mockController.updateServer(server);
+                          });
                         },
                       ),
                       body: MockEditWidget(
