@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:mock_client/generated/json/mock_data.g.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:uuid/uuid.dart';
 
@@ -18,5 +21,14 @@ class MockData {
     if (uuid.isEmpty) {
       uuid = const Uuid().v1();
     }
+  }
+
+  factory MockData.fromJson(Map<String, dynamic> json) => $MockDataFromJson(json);
+
+  Map<String, dynamic> toJson() => $MockDataToJson(this);
+
+  @override
+  String toString() {
+    return jsonEncode(this);
   }
 }
