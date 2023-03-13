@@ -123,8 +123,8 @@ class _MockEditWidgetState extends State<MockEditWidget> {
       widget.mockData?.name = name;
       widget.mockData?.url = url;
       widget.mockData?.response = response;
+      mockController.updateMockData(widget.mockData!);
     }
     widget.mockServer.isAddNew.value = false;
-    mockController.updateServer(widget.mockServer);
   }
 }
