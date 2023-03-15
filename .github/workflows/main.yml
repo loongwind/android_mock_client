@@ -11,10 +11,7 @@ jobs:
           channel: 'stable'
      - run: flutter config --enable-macos-desktop
      - run: flutter build macos
-     - name: Download a Build Artifact
      - uses: actions/download-artifact@v2.1.1
        with:
-        # Artifact name
         name: client.app
-        # Destination path
         path: build/macos/Build/Products/Release/mock_client.app
