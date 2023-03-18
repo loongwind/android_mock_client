@@ -33,14 +33,14 @@ class MockController extends GetxController {
       _dataRepository.removeServer(server);
     }
 
-    void saveMockData(String name, String url, String response){
+    void saveMockData(MockServer server, String name, String url, String response){
       var mockData = MockData(name, url, response);
-      _dataRepository.saveMockData(mockData);
+      _dataRepository.saveMockData(server, mockData);
     }
 
-    void updateMockData(MockData mockData){
+    void updateMockData(MockServer server, MockData mockData){
       servers.refresh();
-      _dataRepository.saveMockData(mockData);
+      _dataRepository.saveMockData(server, mockData);
     }
 
     void _sort(){

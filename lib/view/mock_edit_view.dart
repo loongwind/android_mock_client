@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
+import 'package:mock_client/utils/base64.dart';
 
 class MockEditWidget extends StatefulWidget {
   final MockServer mockServer;
@@ -30,7 +31,7 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     super.initState();
     nameController.text = widget.mockData?.name ?? "";
     urlController.text = widget.mockData?.url ?? "";
-    responseController.text = widget.mockData?.response ?? "";
+    responseController.text = widget.mockData?.response.decodeBase64() ?? "";
   }
 
   @override
@@ -115,15 +116,18 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   void submit() {
     String name = nameController.text;
     String url = urlController.text;
-    String response = responseController.text;
+    String response = responseController.text.toBase64();
 
     if (widget.mockData == null) {
-      widget.mockServer.data.add(MockData(name, url, response));
+      var mockData = MockData(name, url, response);
+      mockData.isNew = true;
+      widget.mockServer.data.add(mockData);
+      mockController.updateServer(widget.mockServer);
     } else {
       widget.mockData?.name = name;
       widget.mockData?.url = url;
       widget.mockData?.response = response;
-      mockController.updateMockData(widget.mockData!);
+      mockController.updateMockData(widget.mockServer, widget.mockData!);
     }
     widget.mockServer.isAddNew.value = false;
   }

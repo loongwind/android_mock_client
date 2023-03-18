@@ -1,3 +1,6 @@
+import 'package:mock_client/http/apis.dart';
+import 'package:mock_client/http/request.dart';
+import 'package:mock_client/http/request_client.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
 import 'package:mock_client/objectbox.g.dart';
@@ -22,6 +25,10 @@ class DataRepository {
 
   void saveServer(MockServer server) {
     _mockServerBox.put(server);
+    List<MockData> newData = server.data.where((element) => element.isNew).toList();
+    if(newData.isNotEmpty){
+      _submit(server, newData);
+    }
   }
 
   void removeServer(MockServer server) {
@@ -32,7 +39,14 @@ class DataRepository {
     return _mockServerBox.getAll();
   }
 
-  void saveMockData(MockData data) {
+  void saveMockData(MockServer server, MockData data) {
     _mockDataBox.put(data);
+    _submit(server, [data]);
+  }
+
+  void _submit(MockServer server, List<MockData> data) {
+    request(() async {
+      await requestClient.post("http://${server.addr}${APIS.add}", data: data, headers: {"Content-Type":"application/json"});
+    });
   }
 }

@@ -17,6 +17,8 @@ class MockData {
   @Transient()
   int sort = 0;
 
+  bool isNew = false;
+
   MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = ""}) {
     if (uuid.isEmpty) {
       uuid = const Uuid().v1();

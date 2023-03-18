@@ -28,7 +28,7 @@ MockData $MockDataFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> $MockDataToJson(MockData entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data['id'] = entity.id;
+  // data['id'] = entity.id;
   data['uuid'] = entity.uuid;
   data['name'] = entity.name;
   data['url'] = entity.url;
