@@ -121,12 +121,12 @@ class _ServerWidgetState extends State<ServerWidget> {
                 return ListTile.selectable(
                   onPressed: () => controller.selectedIndex.value = mockData.sort,
                   leading: Padding(
-                    padding: const EdgeInsets.symmetric(vertical:10),
+                    padding: const EdgeInsets.symmetric(vertical:9),
                       child: Icon(FluentIcons.azure_a_p_i_management, color: mockData.isActive.value && widget.server.isMocking.value ? Colors.blue : null,)),
                   title: Text(mockData.name),
                   subtitle: Text(mockData.url),
                   trailing: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Row(
                       children: [
                         IconButton(
