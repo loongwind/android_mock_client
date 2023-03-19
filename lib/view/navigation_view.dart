@@ -119,7 +119,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                 items: List.generate(server.data.length, (index) {
                   MockData data = server.data[index];
                   return PaneItem(
-                      icon: const Icon(FluentIcons.azure_a_p_i_management),
+                      icon: Icon(FluentIcons.azure_a_p_i_management, color: data.isActive.value && server.isMocking.value ? Colors.blue : null,),
                       title: Text(data.name),
                       infoBadge: IconButton(
                         icon: const Icon(

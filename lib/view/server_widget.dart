@@ -48,6 +48,15 @@ class _ServerWidgetState extends State<ServerWidget> {
         ),
         IconButton(
             icon: Icon(
+              FluentIcons.refresh,
+              color: material.Theme.of(context).primaryColor,
+            ),
+            onPressed: () => controller.refreshMockData(widget.server)),
+        const SizedBox(
+          width: 10,
+        ),
+        IconButton(
+            icon: Icon(
               FluentIcons.edit,
               color: material.Theme.of(context).primaryColor,
             ),
@@ -111,6 +120,9 @@ class _ServerWidgetState extends State<ServerWidget> {
                 MockData mockData = widget.server.data[index];
                 return ListTile.selectable(
                   onPressed: () => controller.selectedIndex.value = mockData.sort,
+                  leading: Padding(
+                    padding: const EdgeInsets.symmetric(vertical:10),
+                      child: Icon(FluentIcons.azure_a_p_i_management, color: mockData.isActive.value && widget.server.isMocking.value ? Colors.blue : null,)),
                   title: Text(mockData.name),
                   subtitle: Text(mockData.url),
                   trailing: Row(

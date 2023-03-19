@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:mock_client/generated/json/mock_data.g.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:uuid/uuid.dart';
@@ -17,7 +18,11 @@ class MockData {
   @Transient()
   int sort = 0;
 
+  @Transient()
   bool isNew = false;
+
+  @Transient()
+  final isActive = false.obs;
 
   MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = ""}) {
     if (uuid.isEmpty) {

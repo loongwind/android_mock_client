@@ -62,11 +62,23 @@ class DataRepository {
       server.isMocking.value = isMocking;
     }, showLoading: showLoading, onError: (e)=> server.isMocking.value = false);
   }
+
   void setMockState(MockServer server, bool mocking) async{
     request(() async {
       bool isSuccess =  await requestClient.post<bool>("http://${server.addr}${APIS.setMockStatus}", data: {"mocking": mocking}, headers: {"Content-Type":"application/x-www-form-urlencoded"}) ?? false;
       if(isSuccess){
         server.isMocking.value = mocking;
+      }
+    });
+  }
+
+  void getMockList(MockServer server){
+    request(() async {
+      List<MockData> list = await requestClient.post<List<MockData>>("http://${server.addr}${APIS.list}", headers: {"Content-Type":"application/json"}) ?? List.empty();
+      for (var mockData in server.data) {
+        if(list.where((element) => element.uuid == mockData.uuid).isNotEmpty){
+          mockData.isActive.value = true;
+        }
       }
     });
   }
