@@ -18,5 +18,8 @@ class MockServer {
   @Transient()
   final isAddNew = false.obs;
 
+  @Transient()
+  final isMocking = false.obs;
+
   MockServer(this.name, this.addr);
 }

@@ -55,4 +55,19 @@ class DataRepository {
       await requestClient.post("http://${server.addr}${APIS.remove}", data: {"uuid":data.uuid}, headers: {"Content-Type":"application/x-www-form-urlencoded"});
     });
   }
+
+  void isMocking(MockServer server, {bool showLoading = false}) async{
+    request(() async {
+      bool isMocking =  await requestClient.get<bool>("http://${server.addr}${APIS.getMockStatus}") ?? false;
+      server.isMocking.value = isMocking;
+    }, showLoading: showLoading, onError: (e)=> server.isMocking.value = false);
+  }
+  void setMockState(MockServer server, bool mocking) async{
+    request(() async {
+      bool isSuccess =  await requestClient.post<bool>("http://${server.addr}${APIS.setMockStatus}", data: {"mocking": mocking}, headers: {"Content-Type":"application/x-www-form-urlencoded"}) ?? false;
+      if(isSuccess){
+        server.isMocking.value = mocking;
+      }
+    });
+  }
 }

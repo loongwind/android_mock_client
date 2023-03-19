@@ -15,10 +15,14 @@ class MockController extends GetxController {
     super.onInit();
     var list = _dataRepository.getServers();
     servers.addAll(list);
-    _sort();
-    ever(servers, (newValue) => _sort());
+    _initServers();
+    ever(servers, (newValue) => _initServers());
   }
 
+  void _initServers(){
+    _sort();
+    _getMockStatus();
+  }
 
     void saveServer(MockServer server){
       servers.add(server);
@@ -60,10 +64,25 @@ class MockController extends GetxController {
       }
     }
 
+    /// 清除服务的添加新Mock状态
     void cleanServerAddNewState(){
       for (var element in servers) {
         element.isAddNew.value = false;
       }
     }
+
+    void _getMockStatus() async{
+      for (var element in servers) {
+        _dataRepository.isMocking(element);
+      }
+    }
+
+    void changeMockState(MockServer server, bool changeValue){
+      if(server.isMocking.value == changeValue){
+        return;
+      }
+      _dataRepository.setMockState(server, changeValue);
+    }
+
 
 }

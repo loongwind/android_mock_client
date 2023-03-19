@@ -4,4 +4,6 @@ class APIS {
   static const remove = "$base/remove";
   static const clean = "$base/clean";
   static const list = "$base/list";
+  static const setMockStatus = "$base/status";
+  static const getMockStatus = "$base/status/get";
 }

@@ -78,6 +78,16 @@ class _ServerWidgetState extends State<ServerWidget> {
               widget.server.isAddNew.value = true;
             }),
         const SizedBox(
+          width: 10,
+        ),
+        Obx(()=>ToggleSwitch(
+            checked: widget.server.isMocking.value,
+            onChanged: (bool value) {
+              controller.changeMockState(widget.server, value);
+            },
+          ),
+        ),
+        const SizedBox(
           width: 30,
         )
       ],
