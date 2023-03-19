@@ -128,8 +128,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                         ),
                         onPressed: () {
                           showDeleteDialog(context: context, msg: data.name, confirmDelete: (){
-                              server.data.remove(data);
-                              mockController.updateServer(server);
+                              mockController.removeMockData(server, data);
                           });
                         },
                       ),

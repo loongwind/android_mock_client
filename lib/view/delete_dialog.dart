@@ -14,15 +14,15 @@ void showDeleteDialog({required BuildContext context, String? msg, Function()? c
         Button(
           child: const Text('取消'),
           onPressed: () {
-            cancelDelete?.call();
             Navigator.pop(context);
+            cancelDelete?.call();
           },
         ),
         FilledButton(
           child: const Text('确定'),
           onPressed: (){
-            confirmDelete?.call();
             Navigator.pop(context);
+            confirmDelete?.call();
           },
         ),
       ],

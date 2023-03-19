@@ -27,7 +27,7 @@ class DataRepository {
     _mockServerBox.put(server);
     List<MockData> newData = server.data.where((element) => element.isNew).toList();
     if(newData.isNotEmpty){
-      _submit(server, newData);
+      _remoteAdd(server, newData);
     }
   }
 
@@ -41,12 +41,18 @@ class DataRepository {
 
   void saveMockData(MockServer server, MockData data) {
     _mockDataBox.put(data);
-    _submit(server, [data]);
+    _remoteAdd(server, [data]);
   }
 
-  void _submit(MockServer server, List<MockData> data) {
+  void _remoteAdd(MockServer server, List<MockData> data) {
     request(() async {
       await requestClient.post("http://${server.addr}${APIS.add}", data: data, headers: {"Content-Type":"application/json"});
+    });
+  }
+
+  void remoteDelete(MockServer server, MockData data) {
+    request(() async {
+      await requestClient.post("http://${server.addr}${APIS.remove}", data: {"uuid":data.uuid}, headers: {"Content-Type":"application/x-www-form-urlencoded"});
     });
   }
 }

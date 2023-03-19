@@ -118,8 +118,7 @@ class _ServerWidgetState extends State<ServerWidget> {
                                   material.Theme.of(context).colorScheme.error),
                           onPressed: () {
                             showDeleteDialog(context: context, msg: mockData.name, confirmDelete: (){
-                                widget.server.data.remove(mockData);
-                                controller.updateServer(widget.server);
+                                controller.removeMockData(widget.server, mockData);
                             });
 
                           })

@@ -28,6 +28,13 @@ class MockController extends GetxController {
       servers.refresh();
       _dataRepository.saveServer(server);
     }
+
+    void removeMockData(MockServer server, MockData removeMockData){
+      server.data.remove(removeMockData);
+      updateServer(server);
+      _dataRepository.remoteDelete(server, removeMockData);
+    }
+
     void delete(MockServer server){
       servers.remove(server);
       _dataRepository.removeServer(server);
