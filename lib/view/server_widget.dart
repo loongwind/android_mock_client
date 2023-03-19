@@ -125,26 +125,29 @@ class _ServerWidgetState extends State<ServerWidget> {
                       child: Icon(FluentIcons.azure_a_p_i_management, color: mockData.isActive.value && widget.server.isMocking.value ? Colors.blue : null,)),
                   title: Text(mockData.name),
                   subtitle: Text(mockData.url),
-                  trailing: Row(
-                    children: [
-                      IconButton(
-                          icon: Icon(
-                            FluentIcons.edit,
-                            color: material.Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () =>controller.selectedIndex.value = mockData.sort,
-                      ),
-                      IconButton(
-                          icon: Icon(FluentIcons.delete,
-                              color:
-                                  material.Theme.of(context).colorScheme.error),
-                          onPressed: () {
-                            showDeleteDialog(context: context, msg: mockData.name, confirmDelete: (){
-                                controller.removeMockData(widget.server, mockData);
-                            });
+                  trailing: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              FluentIcons.edit,
+                              color: material.Theme.of(context).primaryColor,
+                            ),
+                            onPressed: () =>controller.selectedIndex.value = mockData.sort,
+                        ),
+                        IconButton(
+                            icon: Icon(FluentIcons.delete,
+                                color:
+                                    material.Theme.of(context).colorScheme.error),
+                            onPressed: () {
+                              showDeleteDialog(context: context, msg: mockData.name, confirmDelete: (){
+                                  controller.removeMockData(widget.server, mockData);
+                              });
 
-                          })
-                    ],
+                            })
+                      ],
+                    ),
                   ),
                 );
               },
