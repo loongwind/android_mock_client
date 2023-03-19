@@ -1,5 +1,8 @@
 name: Main
-on: push
+on:
+  push:
+    tags:
+      - v*
 jobs:
   build:
     runs-on: macos-latest
