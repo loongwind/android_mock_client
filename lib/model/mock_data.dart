@@ -14,6 +14,7 @@ class MockData {
 
   String url;
   String response;
+  bool enabled;
 
   @Transient()
   int sort = 0;
@@ -24,10 +25,18 @@ class MockData {
   @Transient()
   final isActive = false.obs;
 
-  MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = ""}) {
+  @Transient()
+  final enabledObs = true.obs;
+
+  MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = "", this.enabled = true}) {
     if (uuid.isEmpty) {
       uuid = const Uuid().v1();
     }
+  }
+
+  void setEnabled(bool enabled){
+    this.enabled = enabled;
+    enabledObs.value = enabled;
   }
 
   factory MockData.fromJson(Map<String, dynamic> json) => $MockDataFromJson(json);

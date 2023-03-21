@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:mock_client/http/apis.dart';
 import 'package:mock_client/http/request.dart';
 import 'package:mock_client/http/request_client.dart';
@@ -76,9 +77,9 @@ class DataRepository {
     request(() async {
       List<MockData> list = await requestClient.post<List<MockData>>("http://${server.addr}${APIS.list}", headers: {"Content-Type":"application/json"}) ?? List.empty();
       for (var mockData in server.data) {
-        if(list.where((element) => element.uuid == mockData.uuid).isNotEmpty){
-          mockData.isActive.value = true;
-        }
+        MockData? element = list.firstWhereOrNull((element) => element.uuid == mockData.uuid);
+        mockData.isActive.value = element != null;
+        mockData.setEnabled(element?.enabled ?? false);
       }
     });
   }

@@ -145,7 +145,13 @@ class _ServerWidgetState extends State<ServerWidget> {
                                   controller.removeMockData(widget.server, mockData);
                               });
 
-                            })
+                            }),
+                        Obx(() => ToggleSwitch(
+                            checked: mockData.enabledObs.value,
+                            onChanged: (bool value) {
+                              controller.changeMockDataState(widget.server, mockData, value);
+                            },
+                          ),),
                       ],
                     ),
                   ),

@@ -84,6 +84,14 @@ class MockController extends GetxController {
       _dataRepository.setMockState(server, changeValue);
     }
 
+    void changeMockDataState(MockServer server, MockData mockData, bool changeValue){
+      if(mockData.enabled == changeValue){
+        return;
+      }
+      mockData.setEnabled(changeValue);
+      _dataRepository.saveMockData(server, mockData);
+    }
+
     void refreshMockData(MockServer server){
       _dataRepository.getMockList(server);
       _dataRepository.isMocking(server);

@@ -23,6 +23,10 @@ MockData $MockDataFromJson(Map<String, dynamic> json) {
   if (response != null) {
     mockData.response = response;
   }
+  final bool? enabled = jsonConvert.convert<bool>(json['enabled']);
+  if (enabled != null) {
+    mockData.enabled = enabled;
+  }
   return mockData;
 }
 
@@ -33,5 +37,6 @@ Map<String, dynamic> $MockDataToJson(MockData entity) {
   data['name'] = entity.name;
   data['url'] = entity.url;
   data['response'] = entity.response;
+  data['enabled'] = entity.enabled;
   return data;
 }
