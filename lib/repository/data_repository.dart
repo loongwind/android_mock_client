@@ -47,7 +47,10 @@ class DataRepository {
 
   void _remoteAdd(MockServer server, List<MockData> data) {
     request(() async {
-      await requestClient.post("http://${server.addr}${APIS.add}", data: data, headers: {"Content-Type":"application/json"});
+      bool isSuccess = await requestClient.post("http://${server.addr}${APIS.add}", data: data, headers: {"Content-Type":"application/json"});
+      for (var element in data) {
+        element.isActive.value = true;
+      }
     });
   }
 

@@ -26,7 +26,7 @@ class MockData {
   final isActive = false.obs;
 
   @Transient()
-  final enabledObs = true.obs;
+  final enabledObs = false.obs;
 
   MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = "", this.enabled = true}) {
     if (uuid.isEmpty) {

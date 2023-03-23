@@ -73,7 +73,7 @@ class MockController extends GetxController {
 
     void _getMockStatus() async{
       for (var element in servers) {
-        _dataRepository.isMocking(element);
+       refreshMockData(element);
       }
     }
 
