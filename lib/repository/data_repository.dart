@@ -48,8 +48,11 @@ class DataRepository {
   void _remoteAdd(MockServer server, List<MockData> data) {
     request(() async {
       bool isSuccess = await requestClient.post("http://${server.addr}${APIS.add}", data: data, headers: {"Content-Type":"application/json"});
-      for (var element in data) {
-        element.isActive.value = true;
+      if(isSuccess){
+        for (var element in data) {
+          element.isActive.value = true;
+          element.isNew = false;
+        }
       }
     });
   }
@@ -76,7 +79,7 @@ class DataRepository {
     });
   }
 
-  void getMockList(MockServer server){
+  void getMockList(MockServer server, {bool showLoading = false}){
     request(() async {
       List<MockData> list = await requestClient.post<List<MockData>>("http://${server.addr}${APIS.list}", headers: {"Content-Type":"application/json"}) ?? List.empty();
       for (var mockData in server.data) {
@@ -84,6 +87,6 @@ class DataRepository {
         mockData.isActive.value = element != null;
         mockData.setEnabled(element?.enabled ?? false);
       }
-    });
+    }, showLoading: showLoading);
   }
 }

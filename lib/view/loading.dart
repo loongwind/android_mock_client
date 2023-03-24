@@ -5,6 +5,8 @@ import 'package:mock_client/main.dart';
 String _loadingText = "loading";
 String? _loadingResult = "";
 
+int _showLoadingFlag = 0;
+
 Future loading(Function block, {bool isShowLoading = true}) async {
   if (isShowLoading) {
     showLoading();
@@ -20,6 +22,11 @@ Future loading(Function block, {bool isShowLoading = true}) async {
 }
 
 void showLoading() async{
+  if(_showLoadingFlag > 0){
+    _showLoadingFlag ++;
+    return;
+  }
+  _showLoadingFlag ++;
   final context = navigatorKey.currentState?.overlay?.context;
   if(context != null){
     _loadingResult = _loadingText;
@@ -31,6 +38,10 @@ void showLoading() async{
 }
 
 void dismissLoading() {
+  _showLoadingFlag --;
+  if(_showLoadingFlag > 0){
+    return;
+  }
   if(_loadingResult == _loadingText){
     _loadingResult = "";
     Navigator.pop((navigatorKey.currentState?.overlay?.context)!);

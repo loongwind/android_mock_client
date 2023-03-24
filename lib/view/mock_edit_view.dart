@@ -102,14 +102,29 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   }
 
   Widget buildSubmit() {
-    return Container(
-      alignment: Alignment.centerRight,
-      padding: const EdgeInsets.only(right: 30),
-      margin: const EdgeInsets.only(top: 20, bottom: 20),
-      child: FilledButton(
-        onPressed: submit,
-        child: const Text('提交'),
-      ),
+    bool showToggle = widget.mockData != null;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(left: 30),
+          margin: const EdgeInsets.only(top: 20, bottom: 20),
+          child: showToggle ? Obx(() => ToggleSwitch(
+            checked: widget.mockData?.enabledObs.value ?? false,
+            onChanged: (bool value) {
+              mockController.changeMockDataState(widget.mockServer, widget.mockData!, value);
+            },
+          ),) : Container(),
+        ),
+        Container(
+          padding: const EdgeInsets.only(right: 30),
+          margin: const EdgeInsets.only(top: 20, bottom: 20),
+          child: FilledButton(
+            onPressed: submit,
+            child: const Text('提交'),
+          ),
+        ),
+      ],
     );
   }
 

@@ -92,9 +92,9 @@ class MockController extends GetxController {
       _dataRepository.saveMockData(server, mockData);
     }
 
-    void refreshMockData(MockServer server){
-      _dataRepository.getMockList(server);
-      _dataRepository.isMocking(server);
+    void refreshMockData(MockServer server, {bool showLoading = false}){
+      _dataRepository.getMockList(server, showLoading: showLoading);
+      _dataRepository.isMocking(server, showLoading: showLoading);
     }
 
 

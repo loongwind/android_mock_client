@@ -51,7 +51,7 @@ class _ServerWidgetState extends State<ServerWidget> {
               FluentIcons.refresh,
               color: material.Theme.of(context).primaryColor,
             ),
-            onPressed: () => controller.refreshMockData(widget.server)),
+            onPressed: () => controller.refreshMockData(widget.server, showLoading: true)),
         const SizedBox(
           width: 10,
         ),
