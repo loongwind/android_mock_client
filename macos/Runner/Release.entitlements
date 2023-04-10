@@ -3,8 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>com.apple.security.app-sandbox</key>
-	<true/>
-	<key>com.apple.security.network.client</key>
-    <true/>
+    	<true/>
+    	<key>com.apple.security.cs.allow-jit</key>
+    	<true/>
+    	<key>com.apple.security.network.server</key>
+    	<true/>
+    	<key>com.apple.security.network.client</key>
+        <true/>
+        <key>com.apple.security.application-groups</key>
+          <array>
+            <string>FGDTDLOBXDJ.demo</string>
+          </array>
 </dict>
 </plist>
