@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:get/get.dart';
+import 'package:mock_client/app.dart';
 import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
@@ -139,6 +140,14 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                       onTap: () => mockController.cleanServerAddNewState());
                 }));
           }),
+          footerItems: [
+            PaneItem(
+                icon: Container(),
+                title: const Text(version),
+                body: Container(),
+                enabled: false,
+            )
+          ]
         ),
         transitionBuilder: (child, animation) {
           return SuppressPageTransition(
