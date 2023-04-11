@@ -20,7 +20,7 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationWidgetState extends State<NavigationWidget> {
-  bool isWindows = defaultTargetPlatform == TargetPlatform.windows;
+  bool isMacos = defaultTargetPlatform == TargetPlatform.macOS;
   MockController mockController = Get.find();
 
   @override
@@ -46,7 +46,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 400),
                   child: Padding(
-                    padding: EdgeInsets.only(left: isWindows ? 10 : 250),
+                    padding: EdgeInsets.only(left: isMacos ? 250 : 10),
                     child: CommandBar(
                       primaryItems: [
                         CommandBarButton(
@@ -62,7 +62,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                   ),
                 ),
                 // WindowButtons()
-                if (isWindows) const WindowButtons() else Container()
+                isMacos ? Container() : const WindowButtons()
               ],
             )
             // actions: defaultTargetPlatform == TargetPlatform.windows
