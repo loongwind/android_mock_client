@@ -20,7 +20,7 @@ class DataRepository {
   }
 
   Future<void> initStore() async {
-    _store = await openStore(macosApplicationGroup: "FGDTDLOBXDJ.demo");
+    _store = await openStore(macosApplicationGroup: "FGDTDLOBXDJ.demo", directory: "${(await getApplicationDocumentsDirectory()).path}/android_mock_client");
     return;
   }
 
