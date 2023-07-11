@@ -42,6 +42,7 @@ void dismissLoading() {
   if(_showLoadingFlag > 0){
     return;
   }
+  _showLoadingFlag = 0;
   if(_loadingResult == _loadingText){
     _loadingResult = "";
     Navigator.pop((navigatorKey.currentState?.overlay?.context)!);
