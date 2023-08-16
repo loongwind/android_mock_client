@@ -55,7 +55,7 @@ val okHttpClient = OkHttpClient.Builder()
 ### 使用 MockServer 客户端
 首先在项目的 [Github Release ](https://github.com/loongwind/android_mock_client/releases) 中下载最新客户端，根据自己的系统选择下载对应的版本，如下图：
 
-![image.png](images/1.png)
+<img src="images/1.png" width="600"/>
 
 下载后进行安装，打开后客户端界面如下：
 
@@ -63,7 +63,7 @@ val okHttpClient = OkHttpClient.Builder()
 
 没错，就是一篇空白...，问题不大，点击 `New`添加需要 Mock 的设备：
 
-![image.png](images/3.png)
+<img src="images/3.png" width="600"/>
 
 名称随便填，地址填写你设备的 ip 地址，端口默认为 8080，比如：`192.168.1.12:8080`，然后点击确定：
 
