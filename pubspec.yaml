@@ -45,6 +45,7 @@ dependencies:
   path_provider: ^2.0.13
   dio: ^5.0.2
   pretty_dio_logger: ^1.3.1
+  json_editor: ^0.0.8
 
 dev_dependencies:
   flutter_test:

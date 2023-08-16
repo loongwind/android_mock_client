@@ -15,6 +15,7 @@ class MockData {
   String url;
   String response;
   bool enabled;
+  bool isJsonMode;
 
   @Transient()
   int sort = 0;
@@ -28,7 +29,7 @@ class MockData {
   @Transient()
   final enabledObs = false.obs;
 
-  MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = "", this.enabled = true}) {
+  MockData(this.name, this.url, this.response, {this.id = 0, this.uuid = "", this.enabled = true, this.isJsonMode = true}) {
     if (uuid.isEmpty) {
       uuid = const Uuid().v1();
     }

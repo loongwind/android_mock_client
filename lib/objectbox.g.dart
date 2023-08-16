@@ -23,7 +23,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 3735452852692889002),
       name: 'MockData',
-      lastPropertyId: const IdUid(5, 560779303076101383),
+      lastPropertyId: const IdUid(7, 5927444894265397006),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -50,6 +50,16 @@ final _entities = <ModelEntity>[
             id: const IdUid(5, 560779303076101383),
             name: 'name',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 6469196694812895288),
+            name: 'enabled',
+            type: 1,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 5927444894265397006),
+            name: 'isJsonMode',
+            type: 1,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -131,12 +141,14 @@ ModelDefinition getObjectBoxModel() {
           final urlOffset = fbb.writeString(object.url);
           final responseOffset = fbb.writeString(object.response);
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(6);
+          fbb.startTable(8);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, uuidOffset);
           fbb.addOffset(2, urlOffset);
           fbb.addOffset(3, responseOffset);
           fbb.addOffset(4, nameOffset);
+          fbb.addBool(5, object.enabled);
+          fbb.addBool(6, object.isJsonMode);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -153,7 +165,11 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 10, ''),
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               uuid: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''));
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              enabled: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 14, false),
+              isJsonMode: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 16, false));
 
           return object;
         }),
@@ -215,6 +231,14 @@ class MockData_ {
 
   /// see [MockData.name]
   static final name = QueryStringProperty<MockData>(_entities[0].properties[4]);
+
+  /// see [MockData.enabled]
+  static final enabled =
+      QueryBooleanProperty<MockData>(_entities[0].properties[5]);
+
+  /// see [MockData.isJsonMode]
+  static final isJsonMode =
+      QueryBooleanProperty<MockData>(_entities[0].properties[6]);
 }
 
 /// [MockServer] entity fields to define ObjectBox queries.

@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3735452852692889002",
-      "lastPropertyId": "5:560779303076101383",
+      "lastPropertyId": "7:5927444894265397006",
       "name": "MockData",
       "properties": [
         {
@@ -33,6 +33,16 @@
           "id": "5:560779303076101383",
           "name": "name",
           "type": 9
+        },
+        {
+          "id": "6:6469196694812895288",
+          "name": "enabled",
+          "type": 1
+        },
+        {
+          "id": "7:5927444894265397006",
+          "name": "isJsonMode",
+          "type": 1
         }
       ],
       "relations": []

@@ -1,6 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:get/get.dart';
+import 'package:json_editor/json_editor.dart';
 import 'package:mock_client/controller/mock_controller.dart';
 import 'package:mock_client/model/mock_data.dart';
 import 'package:mock_client/model/mock_server.dart';
@@ -25,6 +27,8 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   final MockController mockController = Get.find();
   bool isWindows = defaultTargetPlatform == TargetPlatform.windows;
   late int responseLines = isWindows ? 26 : 29;
+  JsonElement? _elementResult;
+  bool isJsonMode = false;
 
   @override
   void initState() {
@@ -32,6 +36,12 @@ class _MockEditWidgetState extends State<MockEditWidget> {
     nameController.text = widget.mockData?.name ?? "";
     urlController.text = widget.mockData?.url ?? "";
     responseController.text = widget.mockData?.response.decodeBase64() ?? "";
+    isJsonMode = widget.mockData?.isJsonMode ?? false;
+    try {
+        _elementResult = JsonElement.fromString(widget.mockData?.response.decodeBase64() ?? "");
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -81,16 +91,70 @@ class _MockEditWidgetState extends State<MockEditWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 25),
-            child: Text('Response:'),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Text('Response:'),
+              ),
+              const SizedBox(width: 20,),
+              RadioButton(
+                checked: !isJsonMode,
+                content: const Text('Text'),
+                onChanged: (value){
+                  setState(() {
+                    isJsonMode = false;
+                  });
+                },
+              ),
+              const SizedBox(width: 20,),
+              RadioButton(
+                checked: isJsonMode,
+                content: const Text('Json'),
+                onChanged: (value){
+                  setState(() {
+                    isJsonMode = true;
+                  });
+                },
+              ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 30),
+                  child: isJsonMode ? FilledButton(
+                    onPressed: (){
+                      setState(() {
+
+                      });
+                    },
+
+                    child: const Text('格式化',),
+                  ) : Container(),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Expanded(
             // padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: TextBox(
+              child: isJsonMode ? material.Material(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey[30]),
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: JsonEditor.object(
+                    object: _elementResult?.toObject(),
+                    onValueChanged: (value){
+                      _elementResult = value;
+                    },
+                  ),
+                ),
+              ) : TextBox(
                   controller: responseController,
                   maxLines: null,
                   minLines: null),
@@ -131,10 +195,10 @@ class _MockEditWidgetState extends State<MockEditWidget> {
   void submit() {
     String name = nameController.text;
     String url = urlController.text;
-    String response = responseController.text.toBase64();
+    String response = isJsonMode ? _elementResult.toString().toBase64() : responseController.text.toBase64();
 
     if (widget.mockData == null) {
-      var mockData = MockData(name, url, response);
+      var mockData = MockData(name, url, response, isJsonMode: isJsonMode);
       mockData.isNew = true;
       widget.mockServer.data.add(mockData);
       mockController.updateServer(widget.mockServer);
@@ -142,6 +206,7 @@ class _MockEditWidgetState extends State<MockEditWidget> {
       widget.mockData?.name = name;
       widget.mockData?.url = url;
       widget.mockData?.response = response;
+      widget.mockData?.isJsonMode = isJsonMode;
       mockController.updateMockData(widget.mockServer, widget.mockData!);
     }
     widget.mockServer.isAddNew.value = false;
